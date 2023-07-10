@@ -1,0 +1,142 @@
+/* Live preview */
+div.livePreview
+{
+  height: 90vh;
+  /* background-color: #00ff00aa; */
+}
+
+div#txt2img_gallery
+{
+  height: 90vh;
+  /* background-color: #ffff00aa; */
+}
+
+div.preview.svelte-g4rw9.fixed-height
+{
+  max-height: 90vh;
+  /* background-color: #ff0000aa; */
+}
+
+div.svelte-g4rw9.fixed-height
+{
+  max-height: 90vh;
+  /* background-color: #ff0000aa; */
+}
+
+/* Txt2Img */
+
+/* Seed */
+div#txt2img_seed_row
+{
+  border-color: white;
+  border-width: 1px;
+
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  
+  margin-top: 1vh;
+  margin-bottom: 0.5vh;
+}
+
+/* Seed Title */
+div#txt2img_seed_row span.svelte-1gfkn6j
+{
+  font-weight: bold;
+  margin-bottom: 0.5vw;
+}
+
+/* Extra Button */
+div#txt2img_subseed_show
+{
+  display: none; /* Hide button */
+}
+
+/* Variation seed / Variation strength */
+div#txt2img_subseed_row
+{
+  display: flex; /* Always visible */
+  
+  border-color: white;
+  border-width: 1px;
+
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+}
+
+/* Title - Variation seed / Variation strength */
+div#txt2img_subseed_row span.svelte-1gfkn6j
+{
+  font-weight: bold;
+  margin-bottom: 0.5vw;
+}
+
+/* Resize seed from (width / height) */
+div#component-136
+{
+  display: flex; /* Always visible */
+
+  border-color: white;
+  border-width: 1px;
+
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+}
+
+/* Title - Resize seed from (width / height) */
+div#component-136 span.svelte-1gfkn6j
+{
+  font-weight: bold;
+  margin-bottom: 0.5vw;
+}
+
+/* txt2img script container */
+div.label-wrap.svelte-s1r2yt
+{
+  background: transparent;
+}
+
+/* txt2img script container */
+div.gradio-group.svelte-1oo81b7
+{
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+div.progressDiv {
+height: 50px;
+}
+
+div.progressDiv img {
+height: 20px;
+vertical-align: top;
+display: inline;
+}
+
+div.progress {
+padding-top: 15px;
+height: 50px;
+text-align: center;
+}
+
+div.progress span.ProgressBarDetail {
+background-color: transparent;
+border-width: 2px;
+border-radius: 8px;
+padding: 5px;
+}
+
+div.progress span.ProgressBarDetail.hidden {
+  display: none;
+}
