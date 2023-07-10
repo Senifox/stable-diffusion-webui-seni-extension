@@ -230,33 +230,15 @@ function RemoveProgressBar(ProgressbarContainer)
 
 function SetStatusTextTitle(StatusValues)
 {
-  // const ProgressTextTemplate = "{SecondsFromStart} {ProgressPercent} ({SamplingStep} / {SamplingSteps}) - Remaining: {RemainingTime} - ETA: {ETA} {SecondsPerStep} {TextInfo} {TextInfo}"; 
-  // let progressText = FormatStatusText(ProgressTextTemplate, StatusValues);
-  // FormatAndSetTabTitle(progressText);
+  const ProgressTextTemplate = "{TextInfo} {SecondsFromStart} {ProgressPercent} ({SamplingStep} / {SamplingSteps}) - Remaining: {RemainingTime} - ETA: {ETA} {SecondsPerStep}"; 
+  let progressText = FormatStatusText(ProgressTextTemplate, StatusValues);
+  FormatAndSetTabTitle(progressText);
 }
 
 function SetStatusTextProgressBar(ProgressbarContainer)
 {
-  // const SymbolSecondsFromStart = "http://senifox.de/Icons/hourglass.png";
-  // const SymbolSecondsPerStep = "http://senifox.de/Icons/dashboard.svg";
-  
-  // const ProgressbarTextTemplate = "<span class='ProgressBarDetail' id='TextInfo'>{TextInfo}</span> <span class='ProgressBarDetail' id='SecondsFromStart'><img src='{SymbolSecondsFromStart}'/>{SecondsFromStart}</span> <span class='ProgressBarDetail' id='ProgressPercent'>{ProgressPercent}</span> <span class='ProgressBarDetail' id='SamplingSteps'>{SamplingStep} / {SamplingSteps}</span> <span class='ProgressBarDetail' id='remainingTime'>Remaining: {RemainingTime}</span> <span class='ProgressBarDetail' id='eta'>ETA: {ETA}</span> <span class='ProgressBarDetail' id='SecondsPerStep'><img src='{SymbolSecondsPerStep}'/>{SecondsPerStep}s/it</span>";
-  // const ProgressbarExtensionsTextTemplate = "{SecondsFromStart}";
-  // let progressText = "";
-  // if (ProgressbarContainer.SelectedTab == "Extensions")
-  //   progressText = ProgressbarExtensionsTextTemplate;
-  // else
-  //   progressText = ProgressbarTextTemplate;
-
-  // // let progressText = ProgressbarTextTemplate.replace("{SymbolSecondsFromStart}", SymbolSecondsFromStart);
-  // progressText = progressText.replace("{SymbolSecondsFromStart}", SymbolSecondsFromStart);
-  // progressText = progressText.replace("{SymbolSecondsPerStep}", SymbolSecondsPerStep);
-  // progressText = FormatStatusText(progressText, ProgressbarContainer.StatusValues);
-
-  // ProgressbarContainer.DivInner.innerHTML = progressText;
-  
   ProgressbarContainer.SpanTextInfo.innerText = ProgressbarContainer.StatusValues.TextInfo;
-  ProgressbarContainer.SpanSecondsFromStart.innerText = ProgressbarContainer.StatusValues.SecondsFromStart;
+  ProgressbarContainer.SpanSecondsFromStart.innerText = FormatSecondsToTime(ProgressbarContainer.StatusValues.SecondsFromStart);
   ProgressbarContainer.SpanProgressPercent.innerText = ProgressbarContainer.StatusValues.ProgressPercent;
   ProgressbarContainer.SpanSamplingSteps.innerText = ProgressbarContainer.StatusValues.SamplingStep + " / " + ProgressbarContainer.StatusValues.SamplingSteps;
   ProgressbarContainer.SpanRemainingTime.innerText = ProgressbarContainer.StatusValues.RemainingTime;
@@ -267,7 +249,7 @@ function SetStatusTextProgressBar(ProgressbarContainer)
 function SetStatusText(ProgressbarContainer)
 {
   SetStatusTextProgressBar(ProgressbarContainer);
-  // SetStatusTextTitle(ProgressbarContainer.StatusValues);
+  SetStatusTextTitle(ProgressbarContainer.StatusValues);
 }
 
 /**
@@ -311,7 +293,7 @@ function RequestInternalProgress(ProgressbarContainer, IdLivePreview)
     "id_task": ProgressbarContainer.TaskId
     , "id_live_preview": IdLivePreview
   };
-  console.log("RequestInternalProgress: ", data);
+  // console.log("RequestInternalProgress: ", data);
   var resultHandler = function(res)
   {
     InternalProgressResult(ProgressbarContainer, res);
