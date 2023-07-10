@@ -40,8 +40,12 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   var parentProgressbar = container.parentNode;
   var parentGallery = gallery ? gallery.parentNode : null;
   
-  var divProgress = CreateElementDivProgress();
-  var divInner = CreateElementDivInner();
+  var divProgress = CreateElementDiv("progressDiv", true);
+  var divInner = CreateElement("span", "progress", "SeniProgressbarSpan", false);
+  var divProgressValues = CreateElement("span", "ProgressValues", "SeniProgressbarValuesSpan", false);
+  // var divInner = CreateElementDiv("progress", false);
+  // var divProgressValues = CreateElementDiv("ProgressValues", false);
+
   // TextInfo SecondsFromStart ProgressPercent SamplingSteps RemainingTime ETA SecondsPerStep
   var spanTextInfo = CreateElementSpan("TextInfo", "ProgressBarDetailValue");
   var spanSecondsFromStart = CreateElementSpan("SecondsFromStart", "ProgressBarDetailValue");
@@ -56,21 +60,21 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   var img = CreateElementImg("SeniImgTextInfo", "SeniImg", "http://senifox.de/Icons/info.svg");
   TextInfoContainerSpan.appendChild(img);
   TextInfoContainerSpan.appendChild(spanTextInfo);
-  divInner.appendChild(TextInfoContainerSpan);
+  divProgressValues.appendChild(TextInfoContainerSpan);
 
   // SecondsFromStart
   var outerSpan = CreateElementSpan("SecondsFromStartContainer", "ProgressBarDetail");
   img = CreateElementImg("SeniImgSecondsFromStart", "SeniImg", "http://senifox.de/Icons/caret-right.svg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanSecondsFromStart);
-  divInner.appendChild(outerSpan);
+  divProgressValues.appendChild(outerSpan);
 
   // ProgressPercent
   outerSpan = CreateElementSpan("ProgressPercentContainer", "ProgressBarDetail");
   img = CreateElementImg("SeniImgProgressPercent", "SeniImg", "http://senifox.de/Icons/MissingTexture.jpg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanProgressPercent);
-  divInner.appendChild(outerSpan);
+  divProgressValues.appendChild(outerSpan);
 
   // SamplingSteps
   if (hidden)
@@ -80,21 +84,21 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   img = CreateElementImg("SeniImgSamplingSteps", "SeniImg", "http://senifox.de/Icons/layers.svg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanSamplingSteps);
-  divInner.appendChild(outerSpan);
+  divProgressValues.appendChild(outerSpan);
 
   // RemainingTime
   outerSpan = CreateElementSpan("RemainingTimeContainer", "ProgressBarDetail");
   img = CreateElementImg("SeniImgRemainingTime", "SeniImg", "http://senifox.de/Icons/time-quarter-before.svg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanRemainingTime);
-  divInner.appendChild(outerSpan);
+  divProgressValues.appendChild(outerSpan);
 
   // ETA
   outerSpan = CreateElementSpan("ETAContainer", "ProgressBarDetail");
   img = CreateElementImg("SeniImgETA", "SeniImg", "http://senifox.de/Icons/calendar-clock.svg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanETA);
-  divInner.appendChild(outerSpan);
+  divProgressValues.appendChild(outerSpan);
 
   // SecondsPerStep
   if (hidden)
@@ -104,9 +108,11 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   img = CreateElementImg("SeniImgSecondsPerStep", "SeniImg", "http://senifox.de/Icons/dashboard.svg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanSecondsPerStep);
-  divInner.appendChild(outerSpan);
+  divProgressValues.appendChild(outerSpan);
   
   divProgress.appendChild(divInner);
+  divProgress.appendChild(divProgressValues);
+  
   parentProgressbar.insertBefore(divProgress, container);
 
   var livePreview = CreateElementParentGallery(gallery);
@@ -160,6 +166,17 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   return ProgressbarContainer;
 }
 
+function CreateElement(type, className, id, style)
+{
+  var element = document.createElement(type);
+  element.id = id;
+  element.className = className;
+  if (style)
+    element.style.display = opts.show_progressbar ? "block" : "none";
+  
+  return element;
+}
+
 function CreateElementParentGallery(gallery)
 {
   var parentGallery = gallery ? gallery.parentNode : null;
@@ -183,12 +200,15 @@ function CreateElementDivProgress()
   return divProgress;
 }
 
-function CreateElementDivInner()
+function CreateElementDiv(className, style)
 {
-  var divInner = document.createElement('div');
-  divInner.className = 'progress';
+  var div = document.createElement('div');
+  div.className = className;
   
-  return divInner;
+  if (style)
+    div.style.display = opts.show_progressbar ? "block" : "none";
+
+  return div;
 }
 
 function CreateElementSpan(id, className)
@@ -331,12 +351,18 @@ function InternalProgressResult(ProgressbarContainer, Result)
   ProgressbarContainer.DivProgress.style.width = rect.width + "px";
   
   
-  ProgressbarContainer.DivInner.style.width = ((Result.progress || 0) * 100.0) + '%';
-  ProgressbarContainer.DivInner.style.background = Result.progress ? "" : "transparent";
+  // ProgressbarContainer.DivInner.style.width = ((Result.progress || 0) * 100.0) + '%';
+  // ProgressbarContainer.DivInner.style.background = Result.progress ? "" : "transparent";
   
   if (Result.progress > 0)
-  ProgressbarContainer.StatusValues.ProgressPercent =  ((Result.progress || 0) * 100.0).toFixed(0) + '%'; 
+  {
+    let ProgressPercent = ((Result.progress || 0) * 100.0).toFixed(0) + '%';
+    ProgressbarContainer.StatusValues.ProgressPercent = ProgressPercent; 
+    ProgressbarContainer.DivInner.style.backgroundImage = "linear-gradient(to right, var(--Primary_color)" + ProgressPercent + ", transparent " + ProgressPercent + ")";
+  }
   
+  // background-image: linear-gradient(to right, red 19%, transparent 19%);
+
   if (Result.eta)
   {
     ProgressbarContainer.StatusValues.RemainingTime = FormatSecondsToTime(Result.eta);
