@@ -243,7 +243,7 @@ function SetStatusTextProgressBar(ProgressbarContainer)
   ProgressbarContainer.SpanSamplingSteps.innerText = ProgressbarContainer.StatusValues.SamplingStep + " / " + ProgressbarContainer.StatusValues.SamplingSteps;
   ProgressbarContainer.SpanRemainingTime.innerText = ProgressbarContainer.StatusValues.RemainingTime;
   ProgressbarContainer.SpanETA.innerText = ProgressbarContainer.StatusValues.ETA;
-  ProgressbarContainer.SpanSecondsPerStep.innerText = ProgressbarContainer.StatusValues.SecondsPerStep;
+  ProgressbarContainer.SpanSecondsPerStep.innerText = ProgressbarContainer.StatusValues.SecondsPerStep + " s/it";
 }
 
 function SetStatusText(ProgressbarContainer)
