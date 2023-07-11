@@ -257,6 +257,11 @@ function SetStatusTextTitle(StatusValues)
 
 function SetStatusTextProgressBar(ProgressbarContainer)
 {
+  if (ProgressbarContainer.StatusValues.TextInfo != "")
+    ProgressbarContainer.TextInfoContainerSpan.className = "ProgressBarDetail";  
+  else
+    ProgressbarContainer.TextInfoContainerSpan.className = "ProgressBarDetail hidden";  
+
   ProgressbarContainer.SpanTextInfo.innerText = ProgressbarContainer.StatusValues.TextInfo;
   ProgressbarContainer.SpanSecondsFromStart.innerText = FormatSecondsToTime(ProgressbarContainer.StatusValues.SecondsFromStart);
   ProgressbarContainer.SpanProgressPercent.innerText = ProgressbarContainer.StatusValues.ProgressPercent;
