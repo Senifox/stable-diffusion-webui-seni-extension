@@ -71,7 +71,7 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
 
   // ProgressPercent
   outerSpan = CreateElementSpan("ProgressPercentContainer", "ProgressBarDetail");
-  img = CreateElementImg("SeniImgProgressPercent", "SeniImg", "http://senifox.de/Icons/MissingTexture.jpg");
+  img = CreateElementImg("SeniImgProgressPercent", "SeniImg", "http://senifox.de/Icons/progress-bar.svg");
   outerSpan.appendChild(img);
   outerSpan.appendChild(spanProgressPercent);
   divProgressValues.appendChild(outerSpan);
