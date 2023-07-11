@@ -49,7 +49,16 @@ def on_ui_settings():
       section = section
     )
   )
+  shared.opts.add_option(
+    key = "seni_PlayAudioOnProgressCompleteVolume",
+    info = shared.OptionInfo
+    (
+      default = "50",
+      label = "The volume.",
+      component = gr.Slider,
+      component_args = {"minimum": 1, "maximum": 100, "step": 1},
+      section = section
+    )
+  )
 
 script_callbacks.on_ui_settings(on_ui_settings)
-
-# playAudioOnProgressComplete

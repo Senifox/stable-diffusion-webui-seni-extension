@@ -6,8 +6,10 @@ function PlayAudio(path)
 
   try
   {
+    var options = GetSeniOptions();
     var audio = new Audio(path);
-    audio.volume = 0.5;
+    var volume = options.PlayAudioOnProgressCompleteVolume / 100;
+    audio.volume = volume;
     audio.play();
   }
   catch (error)
