@@ -1,3 +1,11 @@
+:root {
+  --seni-primary-color: #007bff;
+}
+
+div#txt2img_results {
+  min-width: min(650px, 100%) !important;
+}
+
 /* Live preview */
 div.livePreview
 {
@@ -114,13 +122,14 @@ div.gradio-group.svelte-1oo81b7
   margin-bottom: 1vh;
 }
 
+/* The div container for the progress bar and values */
 div.progressDiv {
-height: 30px !important;
+height: 22px !important;
 }
 
 div.progressDiv img.SeniImg {
 height: 20px;
-/* margin-left: 1px; */
+margin-left: 5px;
 margin-right: 5px;
 vertical-align: top;
 display: inline;
@@ -132,25 +141,7 @@ height: 50px;
 text-align: center;
 }
 
-div.progressDiv span#SeniProgressbarValuesSpan span.ProgressBarDetail {
-background-color: transparent;
-border-width: 1px;
-border-radius: 8px !important;
-padding: 2px;
-}
-
-div.progressDiv span#SeniProgressbarValuesSpan span.ProgressBarDetail.hidden {
-  display: none;
-}
-
-div.progressDiv span#SeniProgressbarSpan {
-  z-index: 0;
-  position: absolute;
-  width: inherit;
-  height: inherit;
-  background-color: transparent;
-}
-
+/* Progressbar Values */
 div.progressDiv span#SeniProgressbarValuesSpan {
   z-index: 1;
   position: absolute;
@@ -159,9 +150,27 @@ div.progressDiv span#SeniProgressbarValuesSpan {
   font-size: smaller;
   /* text-align: center; */
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding-right: 10px;
 }
 
-div#txt2img_results {
-  min-width: min(650px, 100%) !important;
+div.progressDiv span#SeniProgressbarValuesSpan span.ProgressBarDetail {
+  background-color: transparent;
+  /* border-width: 1px; */
+  /* border-radius: 8px !important; */
+  /* padding: 2px; */
+}
+
+/* Progressbar Values hidden */
+div.progressDiv span#SeniProgressbarValuesSpan span.ProgressBarDetail.hidden {
+  display: none;
+}
+
+/* Progressbar */
+div.progressDiv span#SeniProgressbarSpan {
+  z-index: 0;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  background-color: transparent;
 }
