@@ -47,13 +47,14 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   // var divProgressValues = CreateElementDiv("ProgressValues", false);
 
   // TextInfo SecondsFromStart ProgressPercent SamplingSteps RemainingTime ETA SecondsPerStep
-  var spanTextInfo = CreateElementSpan("TextInfo", "ProgressBarDetailValue");
-  var spanSecondsFromStart = CreateElementSpan("SecondsFromStart", "ProgressBarDetailValue");
-  var spanProgressPercent = CreateElementSpan("ProgressPercent", "ProgressBarDetailValue");
-  var spanETA = CreateElementSpan("ETA", "ProgressBarDetailValue");
-  var spanSamplingSteps = CreateElementSpan("SamplingSteps", "ProgressBarDetailValue");
-  var spanRemainingTime = CreateElementSpan("RemainingTime", "ProgressBarDetailValue");
-  var spanSecondsPerStep = CreateElementSpan("SecondsPerStep", "ProgressBarDetailValue");
+  var spanTextInfo = CreateElementSpan("TextInfo", "ProgressBarDetailValue", "Infotext");
+  var spanSecondsFromStart = CreateElementSpan("SecondsFromStart", "ProgressBarDetailValue", "Running time");
+  var spanProgressPercent = CreateElementSpan("ProgressPercent", "ProgressBarDetailValue", "Progress");
+  var spanETA = CreateElementSpan("ETA", "ProgressBarDetailValue", "Estimated time of destination");
+  var spanSamplingSteps = CreateElementSpan("SamplingSteps", "ProgressBarDetailValue", "Sampling steps");
+  var spanRemainingTime = CreateElementSpan("RemainingTime", "ProgressBarDetailValue", "Time remaining");
+  var spanSecondsPerStep = CreateElementSpan("SecondsPerStep", "ProgressBarDetailValue", "Generation performance");
+  var spanJobs = CreateElementSpan("SeniProgressBarSpanJobs", "ProgressBarDetailValue", "Job count");
 
   // TextInfo
   var TextInfoContainerSpan = CreateElementSpan("TextInfoContainer", "ProgressBarDetail");
@@ -110,6 +111,17 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
   outerSpan.appendChild(spanSecondsPerStep);
   divProgressValues.appendChild(outerSpan);
   
+  // Jobs
+  //SeniProgressBarSpanJobs
+  if (hidden)
+    outerSpan = CreateElementSpan("SeniProgressBarJobsContainer", "ProgressBarDetail hidden");
+  else
+    outerSpan = CreateElementSpan("SeniProgressBarJobsContainer", "ProgressBarDetail");
+  img = CreateElementImg("SeniProgressBarImgJobs", "SeniImg", "http://senifox.de/Icons/MissingTexture.jpg");
+  outerSpan.appendChild(img);
+  outerSpan.appendChild(spanJobs);
+  divProgressValues.appendChild(outerSpan);
+
   divProgress.appendChild(divInner);
   divProgress.appendChild(divProgressValues);
   
@@ -136,6 +148,8 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
     , "SecondsFromFirstStep": 0
     , "SecondsPerStep": 0
     , "ElapsedFromStart": 0
+    , "JobNo": 0
+    , "JobCount": 0
   };
 
   var ProgressbarContainer = 
@@ -160,6 +174,7 @@ function CreateProgressBar(taskId, container, gallery, onEnd, onProgress, inacti
     , "SpanRemainingTime": spanRemainingTime
     , "SpanETA": spanETA
     , "SpanSecondsPerStep": spanSecondsPerStep
+    , "SpanJobs": spanJobs
     , "StatusValues": StatusValues
   };
   
@@ -211,11 +226,12 @@ function CreateElementDiv(className, style)
   return div;
 }
 
-function CreateElementSpan(id, className)
+function CreateElementSpan(id, className, title)
 {
   var span = document.createElement('span');
   span.className = className;
   span.id = id;
+  span.title = title;
   return span;
 }
 
@@ -269,6 +285,7 @@ function SetStatusTextProgressBar(ProgressbarContainer)
   ProgressbarContainer.SpanRemainingTime.innerText = ProgressbarContainer.StatusValues.RemainingTime;
   ProgressbarContainer.SpanETA.innerText = ProgressbarContainer.StatusValues.ETA;
   ProgressbarContainer.SpanSecondsPerStep.innerText = ProgressbarContainer.StatusValues.SecondsPerStep + " s/it";
+  ProgressbarContainer.SpanJobs.innerText = ProgressbarContainer.StatusValues.JobNo + " / " + ProgressbarContainer.StatusValues.JobCount;
 }
 
 function SetStatusText(ProgressbarContainer)
@@ -393,6 +410,8 @@ function InternalProgressResult(ProgressbarContainer, Result)
     HttpGetRequest("./sdapi/v1/progress?skip_current_image=false", function(Result)
     {
       // console.log("Progress API: ", Result);
+      ProgressbarContainer.StatusValues.JobNo = Result.state.job_no + 1;
+      ProgressbarContainer.StatusValues.JobCount = Result.state.job_count;
       ProgressbarContainer.StatusValues.SamplingStep = Result.state.sampling_step;
       ProgressbarContainer.StatusValues.SamplingSteps = Result.state.sampling_steps;
       if (ProgressbarContainer.StatusValues.DateFirstStep === ProgressbarContainer.StatusValues.DateNull && ProgressbarContainer.StatusValues.SamplingStep > 0)
