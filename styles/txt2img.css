@@ -86,7 +86,7 @@ div#txt2img_subseed_row span.svelte-1gfkn6j
 }
 
 /* Resize seed from (width / height) */
-div#component-136
+div#component-158
 {
   display: flex; /* Always visible */
 
@@ -103,7 +103,7 @@ div#component-136
 }
 
 /* Title - Resize seed from (width / height) */
-div#component-136 span.svelte-1gfkn6j
+div#component-158 span.svelte-1gfkn6j
 {
   font-weight: bold;
   margin-bottom: 0.5vw;
