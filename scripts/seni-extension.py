@@ -27,6 +27,8 @@ script_callbacks.on_ui_tabs(on_ui_tabs)
 
 def on_ui_settings():
   section = ('seni_extension_settings', "Seni Extension")
+  
+  # CheckBox for playing an audio file on progress complete
   shared.opts.add_option(
     key = "seni_PlayAudioOnProgressComplete",
     info = shared.OptionInfo
@@ -38,6 +40,8 @@ def on_ui_settings():
         section = section
     )
   )
+
+  # TextBox for the audio file path
   shared.opts.add_option(
     key = "seni_PlayAudioOnProgressCompletePath",
     info = shared.OptionInfo
@@ -49,6 +53,8 @@ def on_ui_settings():
       section = section
     )
   )
+
+  # Slider for the audio playback volume
   shared.opts.add_option(
     key = "seni_PlayAudioOnProgressCompleteVolume",
     info = shared.OptionInfo
@@ -61,4 +67,29 @@ def on_ui_settings():
     )
   )
 
+  # CheckBox for live preview override when to fetch a preview image
+  shared.opts.add_option(
+    key = "seni_OverrideProgressBarStandardBehaviourPreview",
+    info = shared.OptionInfo
+    (
+        default = False,
+        label = "Override progressbar standard behaviour for when to fetch a preview image.",
+        component = gr.Checkbox,
+        component_args = {"interactive": True},
+        section = section
+    )
+  )
+
+  # Slider for the progress percentage when to fetch a preview image
+  shared.opts.add_option(
+    key = "seni_OverrideProgressBarStandardBehaviourPreviewPercentage",
+    info = shared.OptionInfo
+    (
+      default = 10,
+      label = "Slider for the progress percentage when to fetch a preview image.",
+      component = gr.Slider,
+      component_args = {"minimum": 1, "maximum": 100, "step": 1},
+      section = section
+    )
+  )
 script_callbacks.on_ui_settings(on_ui_settings)
