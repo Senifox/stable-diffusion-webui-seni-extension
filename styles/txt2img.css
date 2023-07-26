@@ -174,3 +174,9 @@ div.progressDiv span#SeniProgressbarSpan {
   height: inherit;
   background-color: transparent;
 }
+
+/* Top row div - Prompts/Buttons/Styles */
+div#txt2img_toprow {
+  /* Move Styles below prompts */
+  display: contents;
+}
